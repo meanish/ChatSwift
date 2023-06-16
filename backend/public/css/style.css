@@ -1,0 +1,73 @@
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f1ecec;
+}
+
+.btn {
+    position: relative;
+    display: block;
+    color: white;
+    font-size: 14px;
+    font-family: "Anonymous Pro";
+    text-decoration: none;
+    margin: 30px 0;
+    padding: 15px 50px;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: 3s all ease;
+}
+.btn1 {
+    border: 2px solid #1db954;
+}
+.btn2 {
+    border: 2px solid #6c5ce7;
+    color: black;
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    transition: all 0.6s ease;
+}
+.btn1::before {
+    background: #1db954;
+    width: 0;
+    height: 100%;
+}
+.btn1:hover::before {
+    width: 100%;
+}
+.btn2::before {
+    background: #6c5ce7;
+    width: 100%;
+    height: 0;
+}
+.btn2:hover::before {
+    height: 100%;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.register {
+    color: rgb(84, 29, 38);
+    font-style: italic;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+}

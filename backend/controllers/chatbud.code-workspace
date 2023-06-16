@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "chatbud",
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"dotenv.enableAutocloaking": true
+	}
+}
