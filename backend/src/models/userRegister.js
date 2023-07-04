@@ -106,11 +106,11 @@ UserSchema.statics.validateRegister = async function (userData) {
 //for token genration
 UserSchema.methods.generateAuthToken = async function () {
     try {
-        console.log(`Entered to token generate ${this._id}`)
+
         const token = jwt.sign({ _id: this._id }, process.env.JWT_keyName)
-        console.log("new token", token)
+
         this.tokens = this.tokens.concat({ token: token })  //placing token in tooken field    //concat to add the token for every action login register add cart    
-        console.log("new db structure", this)
+
 
         await this.save(); //for db saving
         return token;
@@ -124,11 +124,11 @@ UserSchema.methods.generateAuthToken = async function () {
 //before .save() we need to hash password 
 UserSchema.pre("save", async function (next) {
     if (this.isModified("password")) {                  //only call on password change modify type
-        console.log(`Entered password is ${this.password}`)
+
         this.password = await bcrypt.hash(this.password, 10); //10 is round of protection
-        console.log(`Changed password is  ${this.password}`);
+
         this.password_confirmation = await bcrypt.hash(this.password, 10);
-        console.log("password converted", this)
+
 
     }
 })

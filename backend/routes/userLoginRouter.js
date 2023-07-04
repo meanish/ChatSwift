@@ -5,9 +5,9 @@ const router = express.Router();
 
 
 
-router.get("/", (req, res) => {
-    res.send("Login pAge3")
-});
+// router.get("/", (req, res) => {
+//     res.send("Login pAge3")
+// });
 
 
 router.post("/", UserLoginController.LogUser);

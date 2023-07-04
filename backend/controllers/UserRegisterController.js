@@ -9,7 +9,7 @@ module.exports = {
     },
 
     AddUser: async (req, res, next) => {
-        console.log("Called")
+ 
         try {
             const error = await userOriginal.validateRegister(req.body, res, next);
             if (error) {

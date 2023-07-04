@@ -2,17 +2,7 @@ const chats = require("../Data/data");
 const chatOriginal = require("../src/models/chat");
 const userOriginal = require("../src/models/userRegister");
 module.exports = {
-  // ShowChats: (req, res) => {
-  //     res.send(chats)
-  // },
-
-  // ShowOne: (req, res) => {
-  //     res.send(chats)
-  // }
-
-  //chat where detail about chat is there like groupname , individual name, messeages {pos req}
-
-  
+    
   //Searching for a user friend chat. If not vcreateing new document and store in chatOriginal
   AccessChat: async (req, res) => {
     const { userId } = req.body;

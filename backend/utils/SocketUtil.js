@@ -1,5 +1,5 @@
 function excludeSenderAndEmitMessage(io, socket, newmsgrreceived) {
-  console.log("Can I console you", newmsgrreceived);
+
   const roomId = newmsgrreceived.chat._id;
   const message = newmsgrreceived.message;
 

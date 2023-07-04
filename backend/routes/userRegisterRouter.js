@@ -6,9 +6,9 @@ const UserRegisterController = require("../controllers/UserRegisterController")
 
 
 
-router.get("/", (req, res) => {
-    res.send("Home page3")
-});
+// router.get("/", (req, res) => {
+//     res.send("Home page3")
+// });
 
 
 router.post("/", UserRegisterController.AddUser);
