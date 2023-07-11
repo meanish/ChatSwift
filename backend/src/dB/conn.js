@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/chatbud", {
+mongoose
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useUnifiedTopology: true,
-})
-    .then(() => {
-        console.log("connected to the db")
-    })
-    .catch(() => {
-        console.log("eroor");
-    })
+  })
+  .then(() => {
+    console.log("connected to the monog db");
+  })
+  .catch(() => {
+    console.log("eroor in mongodB connection");
+  });

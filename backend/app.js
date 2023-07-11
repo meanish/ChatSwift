@@ -6,7 +6,7 @@ require("./src/dB/conn");
 const hbs = require("hbs");
 const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 8000;
-const ClientPORT = process.env.ClientPORT;
+const ClientPORT = process.env.ClientPORT; //for socket.io
 const auth = require("./middleware/auth");
 
 const ChatRouter = require("./routes/ChatRouter");
@@ -41,6 +41,7 @@ app.use("/message", auth, MessageRouter);
 const _dirname1 = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
+
   app.use(
     express.static(path.join(_dirname1, "..", "/frontend-chatbud/build"))
   );
