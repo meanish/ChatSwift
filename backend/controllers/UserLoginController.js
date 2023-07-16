@@ -27,7 +27,7 @@ module.exports = {
       const haspassword = await bcrypt.compare(password, userData.password); //comparing password with hash password
 
       if (haspassword) {
-        //iif true login sucessful
+        //if true login sucessful
         const token = await userData.generateAuthToken(); //calliing funct to generate token
         res.cookie("chatbud", token); //cookies storing in browser
         throw userData;
