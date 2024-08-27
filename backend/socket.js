@@ -1,15 +1,20 @@
 const SocketUtils = require("./utils/SocketUtil");
 
 module.exports = function (io) {
+
+
   io.on("connection", (socket) => {
     console.log("User Coonnected", socket.id);
     socket.emit("connected");
 
+
+    
     //create a new room room:selected._id
     socket.on("join_room", (room) => {
       console.log(`User entered room ${socket.id} enterd room ${room}`);
       socket.join(room);
     });
+
 
     socket.on("typing", (room) => {
       // Exclude the sender's socket ID from the recipients

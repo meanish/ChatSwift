@@ -69,7 +69,7 @@ const SearchDrawer = () => {
             <p className="nouser">No users found</p>
           ) : (
             <List>
-              {searchResults.map((user) => (
+              {searchResults?.map((user) => (
                 <Tooltip
                   title="Click to message"
                   placement="right-start"

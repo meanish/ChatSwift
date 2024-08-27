@@ -18,25 +18,30 @@ const auth = async (req, res, next) => {
     ) {
       const token = req.headers.authorization.split(" ")[1];
 
-      const verifyUser = jwt.verify(token, process.env.JWT_keyName);//return valid user detail
+      const verifyUser = jwt.verify(token, process.env.JWT_keyName)
 
       const userDetail = await userOriginal
         .findById(verifyUser._id)
         .select("-password");
 
+
+      console.log("Auth user is", userDetail)
+
+
       req.user = userDetail; //req.user contail all login user detail
 
       next();
-    } else {
+    }
+    else {
       res.redirect("/login");
     }
   } catch (error) {
     console.error("Authentication error:", error);
-    // For API requests, return an error response (e.g., HTTP 500 Internal Server Error)
-    if (req.path.startsWith("/api")) {
-      return res.status(500).json({ error: "Internal Server Error" });
-    }
+    return res.status(401).json({ message: 'Token expired or invalid' });
   }
 };
 
 module.exports = auth;
+
+
+

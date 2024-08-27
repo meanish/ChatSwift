@@ -50,6 +50,8 @@ UserLoginSchema.statics.validateLogin = async function (userData) {
         'password.min': 'Password must be at least 8 characters',
         'password.max': 'Password cannot exceed 255 characters',
     };
+
+
     const Validation = new Validator(userData, rules, validationMessages);
     if (Validation.fails()) {
         return { errors: Validation.errors.all() };
@@ -61,3 +63,5 @@ UserLoginSchema.statics.validateLogin = async function (userData) {
 const userLoginOriginal = new mongoose.model("userLoginOriginal", UserLoginSchema)
 
 module.exports = userLoginOriginal;
+
+

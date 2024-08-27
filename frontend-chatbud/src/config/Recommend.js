@@ -6,9 +6,16 @@ const Recommend = ({ props }) => {
   const { setKeyword, keyword, setSearchResults, label, setisLoading } = props;
   const { user } = GlobalChat();
 
+
+  const getUserToken = localStorage.getItem("usertoken");
+
+
+  console.log("What is the token", getUserToken)
+
+
   //after change in typing input Field backend connection
   const handleSearch = async (event) => {
-    event.preventDefault();
+    console.log("Event value", event.target.value)
     const value = event.target.value;
     setKeyword(value);
     setisLoading(true);
@@ -23,8 +30,9 @@ const Recommend = ({ props }) => {
       try {
         const config = {
           headers: {
-            authorization: `Bearer ${user.tokens[0].token}`, //throws a token
+            authorization: `Bearer ${getUserToken || user?.tokens[0].token}`, //throws a token
           },
+          method: "GET"
         };
         const response = await fetch(
           `/search?keyword=${encodeURIComponent(value)}`, //here symbols will be replaced as ""
@@ -38,18 +46,12 @@ const Recommend = ({ props }) => {
           setSearchResults(users);
           setisLoading(false);
         }
-      } catch (error) {
-        console.error("Failed searching:", error);
+      } catch {
+        console.error("Failed searching:");
       }
     }
   };
 
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Prevent form submission
-      handleSearch(event); // Call handleSearch function
-    }
-  };
 
   return (
     <>
@@ -66,8 +68,7 @@ const Recommend = ({ props }) => {
           style={{ width: 200 }}
           value={keyword}
           onChange={handleSearch}
-          onSubmit={handleSearch}
-          onKeyPress={handleKeyPress}
+
         />
       </form>
     </>

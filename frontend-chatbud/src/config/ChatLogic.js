@@ -25,7 +25,15 @@ export const GetChat = async (
   RestoreselectedChat,
   setclickUser
 ) => {
+
   try {
+    console.log("ALl Data related", user,
+      "userId", userId, //id of the selected individual
+      "REst", setchatList,
+      RestoreselectedChat,
+      setclickUser)
+
+
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -33,14 +41,17 @@ export const GetChat = async (
       },
     };
 
-    const newChat = await axios.post("/chat/api", { userId }, config); //search for available chat if no create new chat in dB
+    const newChat = await axios.post("/chat/api", {
+      body: userId,
+      config
+    }); //search for available chat if no create new chat in dB
     const responseChat = await axios.get("/chat/api", config); //all the chatlist
 
     localStorage.setItem("userChatList", JSON.stringify(responseChat.data));
 
     setchatList(responseChat.data); //in provideer place all chat list of the user admnin
 
-    
+
 
 
     if (newChat.data.length > 0) {
@@ -51,7 +62,7 @@ export const GetChat = async (
       });
     } else {//onChatlist select chat
       setclickUser(newChat.data
-        );
+      );
       RestoreselectedChat({
         val: newChat.data,
       });

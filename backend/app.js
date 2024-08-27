@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const cors = require('cors');
 const path = require("path");
 require("./src/dB/conn");
 const hbs = require("hbs");
@@ -17,6 +18,14 @@ const messageOriginal = require("./src/models/message");
 const MessageRouter = require("./routes/MessageRouter");
 const SocketUtils = require("./utils/SocketUtil");
 const { SearchController } = require("./controllers/SearchController");
+
+app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 
 app.use(express.json()); //if we get json in return from file express handles in postman
 app.use(express.urlencoded({ extended: false })); //not only postman in live server too return json handles
@@ -60,7 +69,7 @@ if (process.env.NODE_ENV === "production") {
 // ..................DEPLOYEMENT......................
 
 const server = app.listen(PORT, "127.0.0.1", () => {
-  console.log("Port Connected");
+  console.log(`Prt Connected in  ${PORT}`);
 });
 
 //Socket.io

@@ -25,6 +25,8 @@ const ChatProvider = ({ children }) => {
     const chatFunction = async () => {
       // Retrieve user details from local storage on component mount
       const storedUser = localStorage.getItem("userData");
+
+      console.log("Who user in ChatContext", storedUser)
       if (storedUser) {
         setUser(JSON.parse(storedUser));
       } else if (!storedUser) {
@@ -44,9 +46,11 @@ const ChatProvider = ({ children }) => {
     } else {
       //create a group and set
       try {
+
+        const userToken = localStorage.getItem("usertoken");
         const config = {
           headers: {
-            authorization: `Bearer ${user.tokens[0].token}`, //throws a token
+            authorization: `Bearer ${userToken}`, //throws a token
           },
         };
 
@@ -71,7 +75,7 @@ const ChatProvider = ({ children }) => {
           const room = chat._id;
           socket.emit("join_room", room);
         });
-        
+
         setselectedUser("");
         setSearchResults([]);
       } catch (error) {

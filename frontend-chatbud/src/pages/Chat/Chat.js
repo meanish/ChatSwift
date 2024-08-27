@@ -24,7 +24,6 @@ const Chat = () => {
     setNotification,
     setchatList,
     chatList,
-    user,
     setclickUser,
   } = GlobalChat();
 
@@ -44,58 +43,83 @@ const Chat = () => {
   }, [navigate]);
 
   useEffect(() => {
-    const RestoreChat = async () => {
-      const userData = JSON.parse(localStorage.getItem("userData"));
 
+    const RestoreChat = async () => {
+      const userToken = localStorage.getItem("usertoken");
+      console.log("This for the token in Chat.js", userToken);
       setIsLoading(true);
 
-      if (userData) {
-        //ChatName restore
-        const config = {
-          headers: {
-            authorization: `Bearer ${userData.tokens[0].token}`, //throws a token
-          },
-        };
+      if (userToken) {
 
-        const response = await axios.get("/chat/api", config);
+        try {
+          //ChatName restore
+          const config = {
+            headers: {
+              authorization: `Bearer ${userToken}`, //throws a token
+            },
+          };
 
-        setchatList(response.data);
+          const response = await axios.get("/chat/api", config);
 
-        localStorage.setItem("UserChatList", JSON.stringify(response.data));
 
-        //if any user is clicked
-        const clickUser = JSON.parse(localStorage.getItem("clickedUser"));
-        if (clickUser) setclickUser(clickUser);
+          console.log("What is response for token in chat.js", response.status)
 
-        // same chatmessage display on reload
-        if (response.data && clickUser)
-          RestoreselectedChat({
-            val: clickUser,
+
+
+          setchatList(response.data);
+
+          localStorage.setItem("UserChatList", JSON.stringify(response.data));
+
+          //if any user is clicked
+          const clickUser = JSON.parse(localStorage.getItem("clickedUser"));
+
+          console.log("This is in Chat.js", clickUser);
+
+          if (clickUser) setclickUser(clickUser);
+
+          // same chatmessage display on reload
+          if (response.data && clickUser)
+            RestoreselectedChat({
+              val: clickUser,
+            });
+          //onreload send the selectedchat display msges
+          else if (response.data && !clickUser) {
+            RestoreselectedChat({ val: response.data[0] });
+            setclickUser(response.data[0]);
+          }
+
+          //if new register Display something new page
+          socket.on("connected", () => {
+            if (response.data) {
+              setSocketConnected(true);
+
+              //when us connectes enteres to all room which is being cretaed
+              response.data.forEach((chat) => {
+                const room = chat._id;
+                socket.emit("join_room", room);
+              });
+            }
           });
-        //onreload send the selectedchat display msges
-        else if (response.data && !clickUser) {
-          RestoreselectedChat({ val: response.data[0] });
-          setclickUser(response.data[0]);
+
+          //Notification restore
+          const storedNotification = JSON.parse(
+            localStorage.getItem("newNotification")
+          );
+          if (storedNotification) setNotification(storedNotification);
+        }
+        catch (error) {
+          if (error.response && error.response.status === 401) {
+            // Handle token expiration here
+            console.log('Token expired. Redirect to login or handle appropriately.');
+            // Perform actions such as redirecting to login or displaying a message
+            localStorage.removeItem("usertoken")
+            localStorage.removeItem("userData")
+            navigate("/login")
+          } else {
+            console.error('Error:', error.message);
+          }
         }
 
-        //if new register Display something new page
-        socket.on("connected", () => {
-          if (response.data) {
-            setSocketConnected(true);
-
-            //when us connectes enteres to all room which is being cretaed
-            response.data.forEach((chat) => {
-              const room = chat._id;
-              socket.emit("join_room", room);
-            });
-          }
-        });
-
-        //Notification restore
-        const storedNotification = JSON.parse(
-          localStorage.getItem("newNotification")
-        );
-        if (storedNotification) setNotification(storedNotification);
       }
 
       const timer = setTimeout(() => {

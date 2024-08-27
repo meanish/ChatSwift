@@ -14,6 +14,9 @@ const Messenger = () => {
   const { socketConnected, setisTyping, isTyping, user, setcurrRoom } =
     GlobalChat();
 
+
+
+
   //onTyping effect in receiver
   const changeHandler = (e) => {
     setnewMessage(e.target.value);
@@ -50,7 +53,7 @@ const Messenger = () => {
     <StyleMessenger>
       <div className="chatbox">
         <div className="user-name">
-          {selectedChat !== "" ? (
+          {selectedChat && selectedChat !== "" ? (
             !selectedChat.isGroupChat ? (
               selectedChat.users
                 .filter((val) => val._id !== user._id) //remove admin

@@ -5,6 +5,11 @@ async function SearchController(req, res) {
     const keyword = req.query.keyword;
     const regex = new RegExp(keyword, "i");
 
+
+    console.log("What is the word", keyword)
+    console.log("users atres", req.user)
+
+
     const users = await userOriginal.find({
       $or: [
         { firstname: regex },
@@ -20,6 +25,7 @@ async function SearchController(req, res) {
       ],
       _id: { $ne: req.user._id },
     });
+    console.log("Users", users)
 
     res.send(users);
   } catch (e) {

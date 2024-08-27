@@ -51,7 +51,7 @@ const GetStarted = () => {
             ) : (
               <div id="wrapper">
                 <div className="scrollbar" id="scroll_style">
-                  {searchResults.map((seluser) => (
+                  {searchResults?.map((seluser) => (
                     <div
                       className="force-overflow"
                       key={seluser._id}
@@ -77,8 +77,8 @@ const GetStarted = () => {
 
         <div className="tips">
           <p>
-            Tips: Not sure who's available already? Search ( <span>Anish</span>
-            ). We can have a chat 😉
+            Tips: Not sure who's available already? Search ( <span>Admin</span>
+            )
           </p>
         </div>
       </div>

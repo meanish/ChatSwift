@@ -9,7 +9,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import KeyIcon from "@mui/icons-material/Key";
 import axios from "axios";
 import socket from "../../config/socket";
-
+import jwt_decode from "jwt-decode";
 import { FormStyle } from "../../components/Home/RegisterStyle.styled";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +36,7 @@ const LoginForm = ({ handleClose }) => {
   const navigate = useNavigate();
   // create state variables for each input
 
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: "admin@system.com", password: "admin2024" });
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -71,7 +71,11 @@ const LoginForm = ({ handleClose }) => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      const data = await response.json(); //userData & token
+
+
+      console.log("Data got after login success", data)
+      //Assumina  token is received9
 
       if (data.errors) {
         setErrors(data.errors);
@@ -79,18 +83,22 @@ const LoginForm = ({ handleClose }) => {
         console.log("After login get data", data);
         //login was sucess now lets localStoarage
         // Save user details to local storage and set the user state
-        localStorage.setItem("userData", JSON.stringify(data));
+        localStorage.setItem("userData", JSON.stringify(data.userData));
+        localStorage.setItem("usertoken", data.token);
+
+
+        console.log("Expires at", jwt_decode(data.token))
+
+
 
         //get the chatlist and setItem
         try {
           const config = {
             headers: {
-              authorization: `Bearer ${data.tokens[0].token}`, //throws a token
+              authorization: `Bearer ${data.token}`, //throws a token
             },
           };
           const response = await axios.get("/chat/api", config);
-
-          localStorage.setItem("usertoken", data.tokens[0].token);
 
           setchatList(response.data);
 
@@ -115,8 +123,8 @@ const LoginForm = ({ handleClose }) => {
 
         navigate("/chat");
       }
-    } catch (error) {
-      console.log("Error in react", error);
+    } catch {
+      console.log("Error in react");
     }
   };
 

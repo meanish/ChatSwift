@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { NavbarStyle } from "../../components/Home/NavbarStyle.styled";
 
+
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("");
+
+
+
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
@@ -22,9 +26,8 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/"
-                    className={`list_items ${
-                      activeLink === "home" ? "active" : ""
-                    }`}
+                    className={`list_items ${activeLink === "home" ? "active" : ""
+                      }`}
                     onClick={() => handleLinkClick("home")}
                   >
                     Home
@@ -33,9 +36,8 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/chat"
-                    className={`list_items ${
-                      activeLink === "chat" ? "active" : ""
-                    }`}
+                    className={`list_items ${activeLink === "chat" ? "active" : ""
+                      }`}
                     onClick={() => handleLinkClick("chat")}
                   >
                     Chat
@@ -44,9 +46,8 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/login"
-                    className={`list_items ${
-                      activeLink === "login" ? "active" : ""
-                    }`}
+                    className={`list_items ${activeLink === "login" ? "active" : ""
+                      }`}
                     onClick={() => handleLinkClick("login")}
                   >
                     Login
@@ -55,9 +56,8 @@ const Navbar = () => {
                 <li>
                   <NavLink
                     to="/register"
-                    className={`list_items ${
-                      activeLink === "register" ? "active" : ""
-                    }`}
+                    className={`list_items ${activeLink === "register" ? "active" : ""
+                      }`}
                     onClick={() => handleLinkClick("register")}
                   >
                     Register

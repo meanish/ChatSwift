@@ -18,7 +18,7 @@ const ChatList = () => {
   return (
     <ChatListStyle>
       {chatList
-        ? chatList.map((val, index) => {
+        ? chatList?.map((val, index) => {
             if (val.isGroupChat) {
               return (
                 <p

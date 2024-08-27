@@ -18,7 +18,7 @@ export default function Profile() {
   const open = Boolean(anchorEl);
   const [opendialog, setOpenDialog] = React.useState(false);
   const { LogOut } = GlobalMessage();
-  const { setchatList } = GlobalChat();
+  const { setchatList, user } = GlobalChat();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -66,6 +66,10 @@ export default function Profile() {
             </Avatar>
           </IconButton>
         </Tooltip>
+        {
+          user ? <>{user.firstname}</> : null
+        }
+
       </Box>
       <Menu
         anchorEl={anchorEl}

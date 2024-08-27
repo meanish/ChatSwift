@@ -1,6 +1,7 @@
-const mongoose = require("mongoose")
+    const mongoose = require("mongoose")
 const Validator = require("validatorjs")
 const jwt = require("jsonwebtoken")
+const jwt_decode = require("jwt-decode")
 const bcrypt = require("bcryptjs")
 
 const UserSchema = new mongoose.Schema({
@@ -104,15 +105,20 @@ UserSchema.statics.validateRegister = async function (userData) {
 
 
 //for token genration
+//genrateAuthToken is called after sucessful login to create a token which will be used in the frontend for all token based oprations
 UserSchema.methods.generateAuthToken = async function () {
     try {
 
-        const token = jwt.sign({ _id: this._id }, process.env.JWT_keyName)
+        const token = jwt.sign({ _id: this._id }, process.env.JWT_keyName, { expiresIn: '15m' })
 
-        this.tokens = this.tokens.concat({ token: token })  //placing token in tooken field    //concat to add the token for every action login register add cart    
+        // console.log("Expires at", jwt_decode(token))
 
 
-        await this.save(); //for db saving
+        this.tokens = this.tokens.concat({ token: token })  //placing token in tooken field   
+        //concat to add the token for every action login register add cart    
+
+
+        await this.save(); //for db saving //even if the token expires the token remain in dB need to fix the logic
         return token;
     }
     catch (e) {
