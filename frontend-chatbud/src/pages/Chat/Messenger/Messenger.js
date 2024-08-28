@@ -16,11 +16,15 @@ const Messenger = () => {
 
 
 
+  // console.log("Is the scoket active when messageier", socketConnected)
+
 
   //onTyping effect in receiver
   const changeHandler = (e) => {
     setnewMessage(e.target.value);
 
+
+    // console.log("When writing statrt condition", socketConnected, "In chat troom id", selectedChat._id)
     if (!socketConnected) return;
 
     socket.emit("typing", selectedChat._id);
@@ -56,7 +60,7 @@ const Messenger = () => {
           {selectedChat && selectedChat !== "" ? (
             !selectedChat.isGroupChat ? (
               selectedChat.users
-                .filter((val) => val._id !== user._id) //remove admin
+                .filter((val) => val._id !== (user._id || user?.userData._id)) //remove admin
                 .map(
                   (
                     val //what lest is receiver
@@ -94,9 +98,7 @@ const Messenger = () => {
               }}
             />
             <div className="icons-container">
-              <CameraAlt />
-              <Image />
-              <Mic />
+
               <Button variant="contained" color="primary">
                 <Send
                   onClick={(e) => {
@@ -115,3 +117,8 @@ const Messenger = () => {
 };
 
 export default Messenger;
+
+
+// {/* <CameraAlt />
+//               <Image />
+//               <Mic /> */}

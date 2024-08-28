@@ -1,4 +1,4 @@
-    const mongoose = require("mongoose")
+const mongoose = require("mongoose")
 const Validator = require("validatorjs")
 const jwt = require("jsonwebtoken")
 const jwt_decode = require("jwt-decode")
@@ -109,7 +109,7 @@ UserSchema.statics.validateRegister = async function (userData) {
 UserSchema.methods.generateAuthToken = async function () {
     try {
 
-        const token = jwt.sign({ _id: this._id }, process.env.JWT_keyName, { expiresIn: '15m' })
+        const token = jwt.sign({ _id: this._id }, process.env.JWT_keyName, { expiresIn: '30d' })
 
         // console.log("Expires at", jwt_decode(token))
 

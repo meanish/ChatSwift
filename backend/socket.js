@@ -4,11 +4,11 @@ module.exports = function (io) {
 
 
   io.on("connection", (socket) => {
-    console.log("User Coonnected", socket.id);
+    console.log("User is  Coonnected to a socket of id:", socket.id);
     socket.emit("connected");
 
 
-    
+
     //create a new room room:selected._id
     socket.on("join_room", (room) => {
       console.log(`User entered room ${socket.id} enterd room ${room}`);
@@ -17,6 +17,8 @@ module.exports = function (io) {
 
 
     socket.on("typing", (room) => {
+
+      console.log("User is typing")
       // Exclude the sender's socket ID from the recipients
       const senderSocketId = socket.id;
 

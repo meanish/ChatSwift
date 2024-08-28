@@ -8,6 +8,8 @@ const ChatList = () => {
   const { GetActiveChat } = GlobalMessage();
 
 
+  console.log("Cliceked USer", clickUser, "Chatist", chatList, "user", user)
+
 
   const getChat = ({ val }) => {
     setclickUser(val);
@@ -19,38 +21,36 @@ const ChatList = () => {
     <ChatListStyle>
       {chatList
         ? chatList?.map((val, index) => {
-            if (val.isGroupChat) {
-              return (
-                <p
-                  key={index}
-                  onClick={() => getChat({ val })}
-                  className={`goccia ${
-                    clickUser && clickUser._id === val._id ? "active" : ""
+          if (val.isGroupChat) {
+            return (
+              <p
+                key={index}
+                onClick={() => getChat({ val })}
+                className={`goccia ${clickUser && clickUser._id === val._id ? "active" : ""
                   }`}
-                >
-                  {val.chatName}
-                </p>
-              );
-            } else {
-              return (
-                <div key={index}>
-                  {val.users
-                    .filter((remval) => remval._id !== user._id)
-                    .map((remval, index) => (
-                      <p
-                        key={index}
-                        onClick={() => getChat({ val })}
-                        className={`goccia ${
-                          clickUser && clickUser._id === val._id ? "active" : ""
+              >
+                {val.chatName}
+              </p>
+            );
+          } else {
+            return (
+              <div key={index}>
+                {val.users
+                  .filter((remval) => remval._id !== (user._id || user?.userData._id))
+                  .map((remval, index) => (
+                    <p
+                      key={index}
+                      onClick={() => getChat({ val })}
+                      className={`goccia ${clickUser && clickUser._id === val._id ? "active" : ""
                         }`}
-                      >
-                        {remval.firstname}
-                      </p>
-                    ))}
-                </div>
-              );
-            }
-          })
+                    >
+                      {remval.firstname}
+                    </p>
+                  ))}
+              </div>
+            );
+          }
+        })
         : {}}
     </ChatListStyle>
   );

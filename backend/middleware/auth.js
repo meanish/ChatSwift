@@ -5,8 +5,6 @@ const url = require("url");
 const auth = async (req, res, next) => {
   const parsedUrl = url.parse(req.url).pathname;
 
-  console.log("backend", parsedUrl);
-
   if (parsedUrl === "/chat") {
     return next();
   }
@@ -23,11 +21,6 @@ const auth = async (req, res, next) => {
       const userDetail = await userOriginal
         .findById(verifyUser._id)
         .select("-password");
-
-
-      console.log("Auth user is", userDetail)
-
-
       req.user = userDetail; //req.user contail all login user detail
 
       next();

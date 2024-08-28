@@ -9,7 +9,6 @@ module.exports = {
     try {
       const { email } = req.body;
       const { password } = req.body;
-      console.log("Entered to login")
       //form form validation errror
       const error = await userLoginOriginal.validateLogin(req.body, res);
       if (error) {
@@ -34,10 +33,8 @@ module.exports = {
 
 
         if (userData && userData.tokens && userData.tokens.length > 0) {
-          console.log('Original tokens:', userData.tokens);
           // Reverse the tokens array
           userData.tokens.reverse();
-          console.log('Reversed tokens:', userData.tokens);
         }
 
         throw { userData, token };
@@ -49,7 +46,6 @@ module.exports = {
       }
     } catch (e) {
       res.send(e); //this is helping to send error to frontend
-      console.log("Catch be", e);
     }
   },
 };

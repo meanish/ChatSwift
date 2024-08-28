@@ -26,6 +26,13 @@ const MessengerProvider = ({ children }) => {
   //whenever you change the chat it gets the new chatlIst
   useEffect(() => {
     const saveChat = async () => {
+
+      console.log("SelectedChat in the messfeerContext", state.selectedChat)
+
+
+      console.log("What is the in th usje", user)
+
+
       if (!state.selectedChat) {
         return; // Exit the function if selectedChat is empty
       }
@@ -46,10 +53,10 @@ const MessengerProvider = ({ children }) => {
           config
         );
         const msg = await result.data;
-
+        console.log("Message got from this is", msg)
         dispatch({ type: "Get_Message", payload: { msg } });
       } catch (e) {
-        console.log("error in renaming the chat");
+        console.log("error in getting meesage", e);
       }
     };
     saveChat();

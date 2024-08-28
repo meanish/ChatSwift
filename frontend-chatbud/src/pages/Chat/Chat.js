@@ -62,7 +62,22 @@ const Chat = () => {
           const response = await axios.get("/chat/api", config);
 
 
-          console.log("What is response for token in chat.js", response.status)
+          //if new register Display something new page
+          
+            // console.log("THis is when to restore the chat in chat.js")
+
+            if (response?.data) {
+              setSocketConnected(true);
+
+              //when us connectes enteres to all room which is being cretaed
+              response.data.forEach((chat) => {
+                const room = chat._id;
+                socket.emit("join_room", room);
+              });
+            }
+         
+
+          // console.log("What is response for token in chat.js", response.status)
 
 
 
@@ -73,7 +88,7 @@ const Chat = () => {
           //if any user is clicked
           const clickUser = JSON.parse(localStorage.getItem("clickedUser"));
 
-          console.log("This is in Chat.js", clickUser);
+          // console.log("This is in Chat.js", clickUser);
 
           if (clickUser) setclickUser(clickUser);
 
@@ -88,18 +103,7 @@ const Chat = () => {
             setclickUser(response.data[0]);
           }
 
-          //if new register Display something new page
-          socket.on("connected", () => {
-            if (response.data) {
-              setSocketConnected(true);
 
-              //when us connectes enteres to all room which is being cretaed
-              response.data.forEach((chat) => {
-                const room = chat._id;
-                socket.emit("join_room", room);
-              });
-            }
-          });
 
           //Notification restore
           const storedNotification = JSON.parse(
@@ -110,7 +114,7 @@ const Chat = () => {
         catch (error) {
           if (error.response && error.response.status === 401) {
             // Handle token expiration here
-            console.log('Token expired. Redirect to login or handle appropriately.');
+            // console.log('Token expired. Redirect to login or handle appropriately.');
             // Perform actions such as redirecting to login or displaying a message
             localStorage.removeItem("usertoken")
             localStorage.removeItem("userData")
@@ -131,7 +135,7 @@ const Chat = () => {
       };
     };
     RestoreChat();
-  }, []);
+  }, [navigate]);
 
   return (
     <StyleChat>

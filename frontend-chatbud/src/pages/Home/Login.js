@@ -84,6 +84,7 @@ const LoginForm = ({ handleClose }) => {
         //login was sucess now lets localStoarage
         // Save user details to local storage and set the user state
         localStorage.setItem("userData", JSON.stringify(data.userData));
+        setUser(data?.userData); //set the user
         localStorage.setItem("usertoken", data.token);
 
 
@@ -102,24 +103,41 @@ const LoginForm = ({ handleClose }) => {
 
           setchatList(response.data);
 
+          console.log("ChatList are", response.data)
+
+
           localStorage.setItem("UserChatList", JSON.stringify(response.data));
 
           //if new register Display something new page
+          socket.on("connected", () => {
 
-          if (response.data) {
-            setSocketConnected(true);
+            console.log("THis is when to after login in chat.js")
+            if (response.data) {
+              setSocketConnected(true);
 
-            //when us connectes enteres to all room which is being cretaed
-            response.data.forEach((chat) => {
-              const room = chat._id;
-              socket.emit("join_room", room);
-            });
-          }
+              //when us connectes enteres to all room which is being cretaed
+              response.data.forEach((chat) => {
+                const room = chat._id;
+                socket.emit("join_room", room);
+              });
+            }
+          });
+          // if (response.data) {
+
+
+          //   setSocketConnected(true);
+
+          //   //when us connectes enteres to all room which is being cretaed
+          //   response.data.forEach((chat) => {
+          //     const room = chat._id;
+          //     socket.emit("join_room", room);
+          //   });
+          // }
         } catch (e) {
           console.log("failed to get a chatList");
         }
 
-        setUser(data); //set the user
+
 
         navigate("/chat");
       }

@@ -29,6 +29,11 @@ const Messages = ({ isTyping }) => {
     userId = user._id;
   }
 
+
+
+  // console.log("Messenger Data of active chat", MessageData)
+
+
   //in msgreducer when selectedchat changes stiores msg in MD
   useEffect(() => {
     // Simulated API call to fetch all messages
@@ -172,24 +177,22 @@ const Messages = ({ isTyping }) => {
                     </div>
                   ) : (
                     <div
-                      className={`${
-                        MessageData.sender?._id === userId
-                          ? "col-message-received"
-                          : "col-message-send"
-                      } message-container`}
+                      className={`${MessageData.sender?._id === userId
+                        ? "col-message-received"
+                        : "col-message-send"
+                        } message-container`}
                     >
                       {messages.slice(-showMessages).map((m, i) => (
                         <div
                           key={m._id}
-                          className={`msg_content ${
-                            m.sender._id !== userId ? "received" : "sent"
-                          }`}
+                          className={`msg_content ${m.sender._id !== userId ? "received" : "sent"
+                            }`}
                         >
                           {/* //decisiding where to place the profile pic  */}
                           {(isSameSender(MessageData, m, i, userId) ||
                             isLastMessage(MessageData, i, userId)) && (
-                            <p className="sender_profile">{m.sender.email}</p>
-                          )}
+                              <p className="sender_profile">{m.sender.email}</p>
+                            )}
                           <div className="message">{m.content}</div>
                         </div>
                       ))}

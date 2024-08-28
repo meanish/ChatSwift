@@ -34,6 +34,7 @@ const SearchDrawer = () => {
   };
 
   const handleGetChat = (id, anchor) => () => {
+    console.log("id",id)
     GetChat(user, id, setchatList, RestoreselectedChat, setclickUser); // Calling to get the chat between 2 no then create new
     setState({ ...state, [anchor]: false }); // Close the drawer by updating the state
   };

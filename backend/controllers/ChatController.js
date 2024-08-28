@@ -9,6 +9,8 @@ module.exports = {
   //Searching for a user friend chat. If not vcreateing new document and store in chatOriginal
   AccessChat: async (req, res) => {
     const { userId } = req.body;
+console.log("Usr id.................",req.body)
+
 
     if (!userId) {
       res.status(400).json("UserId not Found Params id maybe");
