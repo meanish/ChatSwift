@@ -42,8 +42,17 @@ img{
 }
 
 
+.head-text{
+  color:gray;
+  text-align:center;
+  padding:10px 0;
+  text-decoration:underline;
+  font-size:40px;
+  font-family:serif;
+}
 
-//acrollbar edit
+
+//scrollbar edit
  .scrollbar {
     float: left;
    max-height: 12rem;
@@ -119,6 +128,7 @@ button{
   font-size: 12px;
   font-weight:bold;
   justify-content: center;
+  transition:ease 0.3s;
   text-shadow: -2px -2px 5px #fff;
   filter: drop-shadow(4px 4px 10px #fff);
  box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.5),

@@ -12,11 +12,11 @@ const SingleUserDetail = () => {
       {selectedChat.users.map((val) => {
         if (user._id !== val._id) {
           return (
-            <div className="user_details" key={val._id}>
+            <div className="user_detailing" key={val._id}>
               <h1 className="head">User Details</h1>
               <div className="user_name">
                 Full Name:
-                <span className="detail">
+                <span className="detail name-highlight">
                   {val.firstname} {val.lastname}
                 </span>
               </div>
@@ -29,7 +29,7 @@ const SingleUserDetail = () => {
             </div>
           );
         } else {
-          return null; // Return null if the condition is not met
+          return null;
         }
       })}
     </SingleUserStyle>

@@ -4,44 +4,49 @@ export const StyleChat = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden; /* Ensure that the whole chat root fits within the viewport */
+
   .chat-root {
     display: flex;
     overflow: hidden;
     flex-grow: 1;
 
     .user-list {
-      flex-grow: 2; /* 30% */
-      max-width: 230px; /* Set a fixed width */
-      overflow: auto;
-
-      .right-container-button {
-        border: none;
-        transition: all 300ms;
-        cursor: pointer;
-        color: white;
-        font-family: roboto, sans-serif;
-        position: relative;
-      }
-      .right-container .right-container-button .long-text {
-        transition: opacity 700ms, width 1ms linear 270ms,
-          font-size 1ms linear 270ms;
-        margin-left: 45px;
-        font-size: 20px;
-        width: auto;
-      }
-    }
-    .create-group {
+      flex-grow: 1;
+      max-width: 10%;
+      overflow-y: auto; /* Add vertical scrollbar if content overflows */
+      background-color: #f4f4f4;
       display: flex;
-      justify-content: space-around;
+      flex-direction: column;
     }
+
     .chat-msg {
-      flex-grow: 6.5; /* 30% */
+      flex-grow: 2;
+      max-width: 75%;
+      overflow-y: auto; /* Add vertical scrollbar if content overflows */
     }
+
     .user-details {
-      flex-grow: 1; /* 20% */
-      overflow: auto;
+      flex-grow: 1;
+      max-width: 15%;
+      overflow-y: auto; /* Add vertical scrollbar if content overflows */
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
     }
   }
+
+  .create-group {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    background: #e6e5dc;
+  }
+   @media (max-width: 768px) {
+    .create-group {
+    padding: 100px 0;
+  }
+   }
 
   .title {
     flex-grow: 1;
@@ -51,20 +56,76 @@ export const StyleChat = styled.div`
   .search {
     position: relative;
     border-radius: 20px;
-    background-color: red;
-    &:hover {
-      background-color: "blue";
-    }
+    background-color: #ff5722;
     margin-left: 0;
-    width: "100%";
+    width: 100%;
+
+    &:hover {
+      background-color: #e64a19;
+    }
   }
 
   .searchIcon {
-    padding: theme.spacing(0, 2);
     height: 100%;
     position: absolute;
-    display: "flex";
-    align-items: "center";
-    justify-content: "center";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 900px) {
+
+
+   .chat-root {
+      flex-direction: column;
+      .user-list,
+      .user-details {
+  max-width: 100%;
+      }
+  .chat-msg {
+        max-width: 100%;
+  }
+.user-list{
+  max-width: 100%;
+ 
+
+}
+.user-details{
+   display:none;
+}
+      .chat-msg {
+        max-width: 100%;
+        flex-grow: 1;
+
+      }
+    }
+
+    .create-group {
+      padding: 15px 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .chat-root {
+      flex-direction: column;
+
+      .user-list,
+      .user-details {
+        max-width: 100%;
+      }
+
+      .chat-msg {
+        max-width: 100%;
+        overflow-y: auto; /* Ensure scrollbar appears if content overflows */
+      }
+
+      .user-details {
+        display:none;
+      }
+    }
+
+    .create-group {
+      padding: 10px 5px;
+    }
   }
 `;

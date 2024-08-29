@@ -76,13 +76,13 @@ const GroupUserDetails = () => {
           <div className="selected_user">
             {selectedUser.length > 0
               ? selectedUser.map((val, index) => {
-                  return (
-                    <p key={index}>
-                      {val.firstname}
-                      <CloseIcon onClick={() => removeUser(val)} />
-                    </p>
-                  );
-                })
+                return (
+                  <p key={index}>
+                    {val.firstname}
+                    <CloseIcon onClick={() => removeUser(val)} />
+                  </p>
+                );
+              })
               : null}
           </div>
 
@@ -141,8 +141,11 @@ const GroupUserDetails = () => {
         >
           <button
             onClick={() => {
-              navigate("/chat");
-              DeleteChatMember({ val: user });
+              const confirmExit = window.confirm("Are you sure you want to exit the group?");
+              if (confirmExit) {
+                navigate("/chat");
+                DeleteChatMember({ val: user });
+              }
             }}
           >
             <span className="long-text bubble-btn">Exit the Group</span>

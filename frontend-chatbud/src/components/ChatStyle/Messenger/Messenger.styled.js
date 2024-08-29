@@ -72,13 +72,24 @@
 import styled from "styled-components";
 
 export const StyleMessenger = styled.div`
+
+.inside-chat{
   position: relative;
   display: flex;
   justify-content: center; /* Center the chatbox horizontally */
   align-items: center; /* Center the chatbox vertically */
- height:90vh;
+min-height:100vh;
   background-color: #f0f2f5;
+}
 
+ @media (max-width: 900px) {
+  .userchat-list{
+    margin:30px;
+  }
+  .inside-chat{
+    min-height:auto;
+  }
+ }
   .chatbox {
     border-radius: 12px;
     background-color: #ffffff;
@@ -90,6 +101,30 @@ export const StyleMessenger = styled.div`
     display: flex;
     flex-direction: column;
   }
+
+.arrowback{
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #f5f5f5;  /* Light background color */
+  border-radius: 50%;  /* Circular shape */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Soft shadow */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background-color: #e0e0e0;  /* Slightly darker on hover */
+    transform: scale(1.1);  /* Slight zoom effect on hover */
+  }
+
+  svg {
+    color: blue;  /* Icon color */
+    font-size: 24px;  /* Icon size */
+  }
+}
+
 
   .messages {
     display: flex;

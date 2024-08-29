@@ -27,10 +27,8 @@ const MessengerProvider = ({ children }) => {
   useEffect(() => {
     const saveChat = async () => {
 
-      console.log("SelectedChat in the messfeerContext", state.selectedChat)
 
 
-      console.log("What is the in th usje", user)
 
 
       if (!state.selectedChat) {
@@ -53,7 +51,6 @@ const MessengerProvider = ({ children }) => {
           config
         );
         const msg = await result.data;
-        console.log("Message got from this is", msg)
         dispatch({ type: "Get_Message", payload: { msg } });
       } catch (e) {
         console.log("error in getting meesage", e);
@@ -85,14 +82,14 @@ const MessengerProvider = ({ children }) => {
         },
       };
       await axios.put(
-        `/chat/removeone`,
+        `${process.env.REACT_APP_API_URL}/chat/removeone`,
         {
           _id: state.selectedChat._id,
           user_id: memb._id,
         },
         config
       );
-      const response = await axios.get("/chat/api", config);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/api`, config);
       localStorage.setItem("UserChatList", JSON.stringify(response.data));
       setchatList(response.data);
       RestoreselectedChat({ val: response.data[0] });
@@ -125,7 +122,7 @@ const MessengerProvider = ({ children }) => {
         },
         config
       );
-      const response = await axios.get("/chat/api", config);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/api`, config);
       setchatList(response.data);
       dispatch({ type: "Add_New_Member", payload: { selectedUser } });
       setselectedUser([]);

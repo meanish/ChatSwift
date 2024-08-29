@@ -26,7 +26,6 @@ const ChatProvider = ({ children }) => {
       // Retrieve user details from local storage on component mount
       const storedUser = localStorage.getItem("userData");
 
-      console.log("Who user in ChatContext", storedUser)
       if (storedUser) {
         setUser(JSON.parse(storedUser));
       } else if (!storedUser) {
@@ -56,7 +55,7 @@ const ChatProvider = ({ children }) => {
 
         //return a single new document with new users group
         await axios.post(
-          `/chat/group`,
+          `${process.env.REACT_APP_API_URL}/chat/group`,
           {
             chatName: chatName,
             users: JSON.stringify(selectedUser.map((val) => val._id)),
@@ -66,7 +65,7 @@ const ChatProvider = ({ children }) => {
         );
         handleClose();
 
-        const response = await axios.get("/chat/api", config);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/api`, config);
         localStorage.setItem("UserChatList", JSON.stringify(response.data));
         setchatList(response.data);
 

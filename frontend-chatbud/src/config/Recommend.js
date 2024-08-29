@@ -10,12 +10,10 @@ const Recommend = ({ props }) => {
   const getUserToken = localStorage.getItem("usertoken");
 
 
-  console.log("What is the token", getUserToken)
 
 
   //after change in typing input Field backend connection
   const handleSearch = async (event) => {
-    console.log("Event value", event.target.value)
     const value = event.target.value;
     setKeyword(value);
     setisLoading(true);
@@ -35,7 +33,7 @@ const Recommend = ({ props }) => {
           method: "GET"
         };
         const response = await fetch(
-          `/search?keyword=${encodeURIComponent(value)}`, //here symbols will be replaced as ""
+          `${process.env.REACT_APP_API_URL}/search?keyword=${encodeURIComponent(value)}`, //here symbols will be replaced as ""
           config
         );
         const users = await response.json();
@@ -65,7 +63,7 @@ const Recommend = ({ props }) => {
           id="outlined-basic"
           label={label}
           variant="outlined"
-          style={{ width: 200 }}
+          style={{ width: "100%" }}
           value={keyword}
           onChange={handleSearch}
 

@@ -27,30 +27,20 @@ export const GetChat = async (
 ) => {
 
   try {
-    console.log("ALl Data related", user,
-      "userId", userId, //id of the selected individual
-    )
-
-
-    console.log("user tokenms.........", user?.tokens[0].token)
-    console.log("To whom contact", userId)
-
-
     const config = {
       headers: {
         authorization: `Bearer ${user?.tokens[0].token}`, //throws a token
       },
     };
 
-    const newChat = await axios.post("/chat/api", {
+    const newChat = await axios.post(`${process.env.REACT_APP_API_URL}/chat/api`, {
       userId
     },
       config
     ); //search for available chat if no create new chat in dB
 
-    console.log("New chat created at", newChat)
 
-    const responseChat = await axios.get("/chat/api", config); //all the chatlist
+    const responseChat = await axios.get(`${process.env.REACT_APP_API_URL}/chat/api`, config); //all the chatlist
 
     localStorage.setItem("userChatList", JSON.stringify(responseChat.data));
 

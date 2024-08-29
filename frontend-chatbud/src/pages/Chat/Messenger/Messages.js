@@ -142,13 +142,14 @@ const Messages = ({ isTyping }) => {
     },
   };
 
+
+
+  
   return (
     <MessageStyle>
       {isLoading ? (
         <div className="loader_container">
-          <div className="loader">
-            <Loader />
-          </div>
+          <Loader />
         </div>
       ) : (
         <ScrollableFeed>
@@ -167,13 +168,14 @@ const Messages = ({ isTyping }) => {
             className="message-list"
             ref={messageListRef}
             onScroll={handleScroll}
+            style={{ overflowY: 'auto', maxHeight: '400px' }}
           >
-            <div className="message">
+            <div className="messagew">
               <div className="center">
                 <div className="grid-message">
                   {!messages.length > 0 ? (
                     <div className="New_Message">
-                      <p>Let's Begin the Conversation .....</p>
+                      <p>Let the Conversation begin .....</p>
                     </div>
                   ) : (
                     <div

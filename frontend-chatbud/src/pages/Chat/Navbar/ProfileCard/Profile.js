@@ -67,7 +67,7 @@ export default function Profile() {
           </IconButton>
         </Tooltip>
         {
-          user ? <>{user.firstname}</> : null
+          user ? <div style={{ "color": 'white', "fontSize": "20px" }}>{user.firstname}</div> : null
         }
 
       </Box>
@@ -129,6 +129,6 @@ export default function Profile() {
         handleDialogClose={handleDialogClose}
         opendialog={opendialog}
       />
-    </React.Fragment>
+    </React.Fragment >
   );
 }

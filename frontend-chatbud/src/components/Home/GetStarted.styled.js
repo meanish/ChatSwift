@@ -12,7 +12,7 @@ export const GetStartedStyle = styled.div`
     position: relative;
     min-height: 500px;
     border-radius: 28px;
-    width: 60%;
+    width: 30%;
     text-align: center;
     border-top: 6px solid ${({ theme }) => theme.colors.bluetheme};
     color: ${({ theme }) => theme.colors.bluetheme};
@@ -42,13 +42,13 @@ export const GetStartedStyle = styled.div`
       color: ${({ theme }) => theme.colors.bluetheme};
     }
     .tips {
-      font-size: 9px;
+      font-size: 13px;
       position: absolute;
       bottom: 25px;
       left: 20px;
       span {
         color: ${({ theme }) => theme.colors.eye};
-        font-size: 11px;
+        font-size: 13px;
       }
     }
     .user_result {

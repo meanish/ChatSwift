@@ -2,7 +2,7 @@
   "name": "frontend-chatbud",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
+  "proxy": "https://tranquilbytes.com/chatswift",
   "dependencies": {
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",

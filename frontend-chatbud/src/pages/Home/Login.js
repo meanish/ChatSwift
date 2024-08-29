@@ -65,7 +65,7 @@ const LoginForm = ({ handleClose }) => {
 
     //catching the data send from the backend
     try {
-      const response = await fetch("/login", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -74,13 +74,11 @@ const LoginForm = ({ handleClose }) => {
       const data = await response.json(); //userData & token
 
 
-      console.log("Data got after login success", data)
       //Assumina  token is received9
 
       if (data.errors) {
         setErrors(data.errors);
       } else if (!data.errors) {
-        console.log("After login get data", data);
         //login was sucess now lets localStoarage
         // Save user details to local storage and set the user state
         localStorage.setItem("userData", JSON.stringify(data.userData));
@@ -99,11 +97,10 @@ const LoginForm = ({ handleClose }) => {
               authorization: `Bearer ${data.token}`, //throws a token
             },
           };
-          const response = await axios.get("/chat/api", config);
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/api`, config);
 
           setchatList(response.data);
 
-          console.log("ChatList are", response.data)
 
 
           localStorage.setItem("UserChatList", JSON.stringify(response.data));
@@ -111,7 +108,6 @@ const LoginForm = ({ handleClose }) => {
           //if new register Display something new page
           socket.on("connected", () => {
 
-            console.log("THis is when to after login in chat.js")
             if (response.data) {
               setSocketConnected(true);
 
@@ -136,8 +132,6 @@ const LoginForm = ({ handleClose }) => {
         } catch (e) {
           console.log("failed to get a chatList");
         }
-
-
 
         navigate("/chat");
       }

@@ -17,6 +17,7 @@ import axios from "axios";
 const Chat = () => {
   const { RestoreselectedChat } = GlobalMessage();
   const [isLoading, setIsLoading] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
 
   const {
@@ -46,7 +47,6 @@ const Chat = () => {
 
     const RestoreChat = async () => {
       const userToken = localStorage.getItem("usertoken");
-      console.log("This for the token in Chat.js", userToken);
       setIsLoading(true);
 
       if (userToken) {
@@ -59,23 +59,23 @@ const Chat = () => {
             },
           };
 
-          const response = await axios.get("/chat/api", config);
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/api`, config);
 
 
           //if new register Display something new page
-          
-            // console.log("THis is when to restore the chat in chat.js")
 
-            if (response?.data) {
-              setSocketConnected(true);
+          // console.log("THis is when to restore the chat in chat.js")
 
-              //when us connectes enteres to all room which is being cretaed
-              response.data.forEach((chat) => {
-                const room = chat._id;
-                socket.emit("join_room", room);
-              });
-            }
-         
+          if (response?.data) {
+            setSocketConnected(true);
+
+            //when us connectes enteres to all room which is being cretaed
+            response.data.forEach((chat) => {
+              const room = chat._id;
+              socket.emit("join_room", room);
+            });
+          }
+
 
           // console.log("What is response for token in chat.js", response.status)
 
@@ -137,6 +137,15 @@ const Chat = () => {
     RestoreChat();
   }, [navigate]);
 
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
+  const [switchDisplay, setSwitchDisplay] = useState(false)
+  const shouldDisplayChatList = windowWidth > 900 || !switchDisplay;
   return (
     <StyleChat>
       {isLoading ? (
@@ -148,7 +157,7 @@ const Chat = () => {
       ) : (
         <>
           <ChatNavbar />
-          {!chatList.length > 0 ? (
+          {chatList.length > 0 ? (
             <GetStarted />
           ) : (
             <div className="chat-root">
@@ -159,16 +168,22 @@ const Chat = () => {
                     <Group />
                   </div>
                 </div>
-                <div className="userchat-list" id="scroll_style">
-                  <ChatList />
-                </div>
+                {
+                  shouldDisplayChatList && <div className="userchat-list" id="scroll_style">
+                    <ChatList switchDisplay={switchDisplay} setSwitchDisplay={setSwitchDisplay} />
+                  </div>
+                }
+
               </div>
               <div className="chat-msg">
-                <Messenger />
+                <Messenger switchDisplay={switchDisplay} setSwitchDisplay={setSwitchDisplay} />
               </div>
-              <div className="user-details">
-                <UserDetails />
-              </div>
+              {
+               <div className="user-details">
+                  <UserDetails />
+                </div>
+              }
+
             </div>
           )}
         </>

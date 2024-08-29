@@ -12,7 +12,7 @@ export const MessageStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 73vh;
+    min-height:400px;
   }
 
  
@@ -20,7 +20,7 @@ export const MessageStyle = styled.div`
   .message-list {
     height: 100%;
     overflow-y: scroll;
-    height: 73vh;
+    min-height: 400px;
     padding: 0 1rem 0rem;
   }
 

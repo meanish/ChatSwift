@@ -2,32 +2,46 @@ import styled from "styled-components";
 
 export const ChatBoxStyle = styled.div`
   color: ${({ theme }) => theme.colors.bluetheme};
-  background: linear-gradient(145deg, #e6e6e6, #ffffff);
-  box-shadow: 35px 35px 70px #d9d9d9, -35px -35px 70px #ffffff;
-  padding: 1rem 0;
-  border: 1px solid orange;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 1.5rem;
+
   .chat_head {
     display: flex;
     width: 100%;
+    text-transform:uppercase;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
   }
+
   .user-name {
     margin: auto;
+    font-size: 24px;
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.primary};
+    text-align: center;
   }
+
   .user_detail {
     .box {
-      box-shadow: 2px 2px 12px -7px rgb(250, 250, 250);
-      border: 2px solid black;
-      border-radius: 5px;
-      padding: 0.5rem;
-      background: rgb(179, 174, 37);
-      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: 1px solid ${({ theme }) => theme.colors.primary};
+      border-radius: 8px;
+      padding: 1rem;
+      background: ${({ theme }) => theme.colors.secondary};
+      color: ${({ theme }) => theme.colors.textLight};
       margin-left: auto;
+      margin-top: 1rem;
     }
   }
 
   .work {
-    color: red;
+    color: ${({ theme }) => theme.colors.danger};
+    font-weight: bold;
   }
 `;
