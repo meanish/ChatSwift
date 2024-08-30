@@ -82,14 +82,7 @@ min-height:100vh;
   background-color: #f0f2f5;
 }
 
- @media (max-width: 900px) {
-  .userchat-list{
-    margin:30px;
-  }
-  .inside-chat{
-    min-height:auto;
-  }
- }
+
   .chatbox {
     border-radius: 12px;
     background-color: #ffffff;
@@ -103,7 +96,7 @@ min-height:100vh;
   }
 
 .arrowback{
-   display: flex;
+   display:none;
   align-items: center;
   justify-content: center;
   width: 40px;
@@ -124,7 +117,18 @@ min-height:100vh;
     font-size: 24px;  /* Icon size */
   }
 }
+ @media (max-width: 900px) {
+  .userchat-list{
+    margin:30px;
+  }
+  .inside-chat{
+    min-height:auto;
+  }
+  .arrowback{
+       display:flex;
 
+  }
+ }
 
   .messages {
     display: flex;

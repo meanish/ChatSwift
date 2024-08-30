@@ -42,9 +42,9 @@ export const StyleChat = styled.div`
     padding: 20px 0;
     background: #e6e5dc;
   }
-   @media (max-width: 768px) {
+   @media (max-width: 900px) {
     .create-group {
-    padding: 100px 0;
+    margin-bottom: 30px;
   }
    }
 

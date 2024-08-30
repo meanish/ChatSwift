@@ -2,17 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import SnackbarProvider from "react-simple-snackbar";
 import ChatProvider from "./context/ChatContext";
 import MessengerProvider from "./context/MessengerContext";
+import { Toaster } from "react-hot-toast";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ChatProvider>
     <MessengerProvider>
-      <SnackbarProvider>
-        <App />
-      </SnackbarProvider>
+      <Toaster position="top-right" />
+
+      <App />
     </MessengerProvider>
   </ChatProvider>
 );

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core";
+import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { NavLink } from "react-router-dom";
-import { useSnackbar } from "react-simple-snackbar";
 import { useNavigate } from "react-router-dom";
 import EmailIcon from "@mui/icons-material/Email";
 import KeyIcon from "@mui/icons-material/Key";
@@ -11,43 +10,30 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import HttpsIcon from "@mui/icons-material/Https";
 import Navbar from "./Navbar";
 import { FormStyle } from "../../components/Home/RegisterStyle.styled";
+import toast from 'react-hot-toast';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: theme.spacing(2),
 
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "300px",
-    },
-    "& .MuiButtonBase-root": {
-      margin: theme.spacing(2),
-    },
+
+const Root = styled('form')(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: theme.spacing(2),
+
+  "& .MuiTextField-root": {
+    margin: theme.spacing(1),
+    width: "300px",
+  },
+  "& .MuiButtonBase-root": {
+    margin: theme.spacing(2),
   },
 }));
 
-const options = {
-  position: "bottom-right",
-  style: {
-    backgroundColor: "transparent",
-    boxShadow: "none",
-    color: "white",
-    fontFamily: "Menlo, monospace",
-    fontSize: "15px",
-    textAlign: "center",
-  },
-};
 
 const RegisterForm = ({ handleClose }) => {
-  const classes = useStyles();
   const navigate = useNavigate();
 
-  const [openSnackbar] = useSnackbar(options);
-  // create state variables for each input
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -55,6 +41,7 @@ const RegisterForm = ({ handleClose }) => {
     password: "",
     password_confirmation: "",
   });
+
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -75,19 +62,20 @@ const RegisterForm = ({ handleClose }) => {
       const data = await response.json();
 
       if (!data.errors) {
-        openSnackbar(
-          <p
-            className="snack-add"
-            style={{
-              backgroundColor: "green",
-              padding: "4px",
-              borderRadius: "7px",
-            }}
-          >
-            Sucessfully registered.
-          </p>,
-          [2000]
-        );
+        // openSnackbar(
+        //   <p
+        //     className="snack-add"
+        //     style={{
+        //       backgroundColor: "green",
+        //       padding: "4px",
+        //       borderRadius: "7px",
+        //     }}
+        //   >
+        //     Sucessfully registered.
+        //   </p>,
+        //   [2000]
+        // );
+        toast.success("Sucessfully registered.")
         navigate("/"); // Redirect to home page
       } else if (data.errors) {
         setErrors(data.errors);
@@ -114,7 +102,7 @@ const RegisterForm = ({ handleClose }) => {
               <h1>Register a new account</h1>
             </div>
             <div className="register-form">
-              <form className={classes.root} onSubmit={handleSubmit}>
+              <Root onSubmit={handleSubmit}>
                 <div className="name_login">
                   <AccountBoxIcon className="custom-icon" />
                   <TextField
@@ -208,7 +196,7 @@ const RegisterForm = ({ handleClose }) => {
                     Register
                   </Button>
                 </div>
-              </form>
+              </Root>
             </div>
           </div>
         </div>

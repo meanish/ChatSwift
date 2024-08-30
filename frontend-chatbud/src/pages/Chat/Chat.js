@@ -163,9 +163,9 @@ const Chat = () => {
             <div className="chat-root">
               <div className="user-list">
                 <div className="create-group">
-                  <SearchDrawer />
+                  <SearchDrawer setSwitchDisplay={setSwitchDisplay}/>
                   <div className="add-group">
-                    <Group />
+                        <Group setSwitchDisplay={setSwitchDisplay} />
                   </div>
                 </div>
                 {

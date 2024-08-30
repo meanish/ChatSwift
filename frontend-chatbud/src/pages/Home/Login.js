@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -9,33 +8,32 @@ import EmailIcon from "@mui/icons-material/Email";
 import KeyIcon from "@mui/icons-material/Key";
 import axios from "axios";
 import socket from "../../config/socket";
-import jwt_decode from "jwt-decode";
 import { FormStyle } from "../../components/Home/RegisterStyle.styled";
+import { styled } from "@mui/material/styles"; // Import styled
+import toast from 'react-hot-toast';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: theme.spacing(1),
 
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "300px",
-    },
-    "& .MuiButtonBase-root": {
-      margin: theme.spacing(2),
-    },
+
+// Styled component using `styled` utility
+const FormRoot = styled('form')(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: theme.spacing(1),
+
+  "& .MuiTextField-root": {
+    margin: theme.spacing(1),
+    width: "300px",
+  },
+  "& .MuiButtonBase-root": {
+    margin: theme.spacing(2),
   },
 }));
 
 const LoginForm = ({ handleClose }) => {
   const { setSocketConnected, setUser, setchatList } = GlobalChat();
-  const classes = useStyles();
   const navigate = useNavigate();
-  // create state variables for each input
-
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
 
@@ -44,8 +42,7 @@ const LoginForm = ({ handleClose }) => {
       const userData = JSON.parse(localStorage.getItem("userData"));
 
       if (userData) {
-        //socket disconnected here
-        navigate("/chat"); // If not logged in, redirect to the login page
+        navigate("/chat");
         return;
       }
     };
@@ -59,11 +56,9 @@ const LoginForm = ({ handleClose }) => {
     setErrors({ ...errors, [name]: "" });
   };
 
-  //login form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //catching the data send from the backend
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: "POST",
@@ -71,67 +66,36 @@ const LoginForm = ({ handleClose }) => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json(); //userData & token
-
-
-      //Assumina  token is received9
+      const data = await response.json();
 
       if (data.errors) {
         setErrors(data.errors);
-      } else if (!data.errors) {
-        //login was sucess now lets localStoarage
-        // Save user details to local storage and set the user state
+      } else {
+        toast.success("Sucessfully Login.")
+
         localStorage.setItem("userData", JSON.stringify(data.userData));
-        setUser(data?.userData); //set the user
+        setUser(data.userData);
         localStorage.setItem("usertoken", data.token);
 
+        const config = {
+          headers: {
+            authorization: `Bearer ${data.token}`,
+          },
+        };
+        const chatResponse = await axios.get(`${process.env.REACT_APP_API_URL}/chat/api`, config);
 
-        console.log("Expires at", jwt_decode(data.token))
+        setchatList(chatResponse.data);
+        localStorage.setItem("UserChatList", JSON.stringify(chatResponse.data));
 
-
-
-        //get the chatlist and setItem
-        try {
-          const config = {
-            headers: {
-              authorization: `Bearer ${data.token}`, //throws a token
-            },
-          };
-          const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/api`, config);
-
-          setchatList(response.data);
-
-
-
-          localStorage.setItem("UserChatList", JSON.stringify(response.data));
-
-          //if new register Display something new page
-          socket.on("connected", () => {
-
-            if (response.data) {
-              setSocketConnected(true);
-
-              //when us connectes enteres to all room which is being cretaed
-              response.data.forEach((chat) => {
-                const room = chat._id;
-                socket.emit("join_room", room);
-              });
-            }
-          });
-          // if (response.data) {
-
-
-          //   setSocketConnected(true);
-
-          //   //when us connectes enteres to all room which is being cretaed
-          //   response.data.forEach((chat) => {
-          //     const room = chat._id;
-          //     socket.emit("join_room", room);
-          //   });
-          // }
-        } catch (e) {
-          console.log("failed to get a chatList");
-        }
+        socket.on("connected", () => {
+          if (chatResponse.data) {
+            setSocketConnected(true);
+            chatResponse.data.forEach((chat) => {
+              const room = chat._id;
+              socket.emit("join_room", room);
+            });
+          }
+        });
 
         navigate("/chat");
       }
@@ -157,7 +121,7 @@ const LoginForm = ({ handleClose }) => {
               <h1>Login to your account</h1>
             </div>
             <div className="login-form">
-              <form className={classes.root} onSubmit={handleSubmit}>
+              <FormRoot onSubmit={handleSubmit}>
                 <div className="email_login">
                   <EmailIcon className="custom-icon" />
                   <TextField
@@ -221,7 +185,7 @@ const LoginForm = ({ handleClose }) => {
                     Register One
                   </NavLink>
                 </div>
-              </form>
+              </FormRoot>
             </div>
           </div>
         </div>

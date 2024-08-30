@@ -12,7 +12,7 @@ import { GlobalMessage } from "../../../context/MessengerContext";
 import Tooltip from "@mui/material/Tooltip";
 import Loader from "../../../config/oldMessageLoader.js";
 
-const SearchDrawer = () => {
+const SearchDrawer = ({ setSwitchDisplay }) => {
   const [state, setState] = useState({
     left: false,
   });
@@ -36,6 +36,8 @@ const SearchDrawer = () => {
   const handleGetChat = (id, anchor) => () => {
     GetChat(user, id, setchatList, RestoreselectedChat, setclickUser); // Calling to get the chat between 2 no then create new
     setState({ ...state, [anchor]: false }); // Close the drawer by updating the state
+    setSwitchDisplay(true)
+
   };
 
   const SearchDrawerStyle = styled("div")({

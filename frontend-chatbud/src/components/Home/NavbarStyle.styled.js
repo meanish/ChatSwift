@@ -6,9 +6,10 @@ export const NavbarStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background-color: #abb4cc; /* Light background */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #4274c9; /* Light background */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
 border-radius:5px;
+margin-bottom:6px;
     top: 0;
     z-index: 1000;
   }
@@ -49,7 +50,7 @@ border-radius:5px;
     color: #ffff;
     font-family: "Pacifico", cursive;
     text-decoration: none;
-    font-size: 21px;
+    font-size: 25px;
     position: relative;
     padding-bottom: 5px;
     transition: color 0.3s ease;
@@ -57,7 +58,9 @@ border-radius:5px;
 
   nav ul li .list_items.active,
   nav ul li .list_items:hover {
-    color: #007bff
+    color: #110F1C;
+    font-size: 27px;
+
   }
 
   nav ul li .list_items:after {
@@ -65,7 +68,7 @@ border-radius:5px;
     position: absolute;
     width: 0%;
     height: 2px;
-    background-color: #007bff;
+    background-color: #110F1C;
     bottom: 0;
     left: 50%;
     transition: width 0.3s ease, left 0.3s ease;
@@ -86,7 +89,7 @@ border-radius:5px;
     height: 0;
     border-style: solid;
     border-width: 5px 5px 0 5px;
-    border-color: #007bff transparent transparent transparent;
+    border-color: #eeee transparent transparent transparent;
     position: absolute;
     top: 30px;
     right: 0px;
@@ -124,6 +127,6 @@ border-radius:5px;
 
   nav .dropDown-menu li a:hover {
     background-color: #e9ecef; /* Light hover effect */
-    color: #007bff;
+    color: #eeee;
   }
 `;

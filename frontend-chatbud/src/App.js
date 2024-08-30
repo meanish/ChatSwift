@@ -9,6 +9,7 @@ import GlobalStyles from "./components/GlobalStyle";
 import bg_theme from "./images/bg.png";
 import bg_theme2 from "./images/2.jpg";
 
+
 const theme = {
   colors: {
     Darkfeather: "rgb(148,3,3)",
