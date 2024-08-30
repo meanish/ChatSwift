@@ -8,7 +8,7 @@ export const NavbarStyle = styled.div`
     padding: 15px 30px;
     background-color: #abb4cc; /* Light background */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-
+border-radius:5px;
     top: 0;
     z-index: 1000;
   }
@@ -16,7 +16,7 @@ export const NavbarStyle = styled.div`
   .logo_section {
     flex: 1;
     img {
-      width: 120px;
+      width: 170px;
       cursor: pointer;
       transition: transform 0.3s ease;
     }

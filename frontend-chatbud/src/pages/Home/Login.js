@@ -36,7 +36,7 @@ const LoginForm = ({ handleClose }) => {
   const navigate = useNavigate();
   // create state variables for each input
 
-  const [formData, setFormData] = useState({ email: "admin@system.com", password: "admin2024" });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
