@@ -47,7 +47,7 @@ const MessengerProvider = ({ children }) => {
           },
         };
         const result = await axios.get(
-          `message/${state.selectedChat._id}`,
+          `${process.env.REACT_APP_API_URL}/message/${state.selectedChat._id}`,
           config
         );
         const msg = await result.data;
@@ -115,7 +115,7 @@ const MessengerProvider = ({ children }) => {
         },
       };
       await axios.put(
-        `chat/addnew`,
+        `${process.env.REACT_APP_API_URL}/chat/addnew`,
         {
           users: JSON.stringify(selectedUser.map((val) => val._id)),
           _id: selectedChat._id,
@@ -142,7 +142,7 @@ const MessengerProvider = ({ children }) => {
         },
       };
       await axios.put(
-        `chat/rename`,
+        `${process.env.REACT_APP_API_URL}/chat/rename`,
         {
           chatName: editedText,
           _id: selectedChat._id,
@@ -169,12 +169,10 @@ const MessengerProvider = ({ children }) => {
           authorization: `Bearer ${user.tokens[0].token}`, //throws a token
         },
       };
-      const messages = await axios.post(
-        `message`,
-        {
-          content: msg,
-          chatId: selectedChat._id,
-        },
+      const messages = await axios.post(`${process.env.REACT_APP_API_URL}/message`, {
+        content: msg,
+        chatId: selectedChat._id,
+      },
         config
       );
       const Latestmsg = await messages.data; //all msg detailed array from dB
