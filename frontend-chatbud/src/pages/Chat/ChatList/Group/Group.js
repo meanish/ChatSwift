@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import AddIcon from "@mui/icons-material/Add";
 import TextField from "@mui/material/TextField";
 import List from "@mui/material/List";
@@ -13,43 +11,29 @@ import { GlobalChat } from "../../../../context/ChatContext";
 import Loader from "../../../../config/oldMessageLoader";
 import { GroupStyle } from "../../../../components/ChatStyle/UserDetails/GroupChat/GroupNameStyle.styled";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 500,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 1,
-};
-
-export default function BasicModal() {
+const BasicModal = () => {
   const [keyword, setKeyword] = useState("");
   const [isLoading, setisLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const {
     searchResults,
     setSearchResults,
     createGroup,
     openSnack,
     setOpenSnack,
-    handleClose,
-    handleOpen,
-    open,
   } = GlobalChat();
 
   const [selectedUser, setselectedUser] = useState([]);
   const [chatName, setchatName] = useState("");
 
-  //selected user to make a group
   const selectUser = (newuser) => {
     if (selectedUser.includes(newuser)) {
-      return; //if same user is clicked more than 1
+      return;
     }
     return setselectedUser([...selectedUser, newuser]);
   };
 
-  //remove specific user before grouping
   const removeUser = (user) => {
     const result = selectedUser.filter((val) => {
       return user !== val;
@@ -57,45 +41,53 @@ export default function BasicModal() {
     setselectedUser(result);
   };
 
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+
   return (
-    <>
-      <button className="right-container-button" onClick={handleOpen}>
+    <GroupStyle>
+      <button className="right-container-button" onClick={handleOpenModal}>
         <span className="long-text bubble-btn">
           Add Group <AddIcon />
         </span>
       </button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <GroupStyle>
+
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+
             <div className="group_box">
               <div className="group_title">
                 <h1>Create Group</h1>
+                <CloseIcon onClick={handleCloseModal} className="close-icon" />
               </div>
-              <div className="group_body">
+              <div className="group_body" style={{ display: "block" }}>
                 <div
                   className="group_name"
                   style={{
-                    margin: "20px",
                     display: "flex",
-                    justifyItems: "center",
+                    justifyItems: " center",
                     alignItems: "center",
+                    gap: "2rem",
+                    flexDirection: "column",
                   }}
                 >
-                  <Recommend
-                    props={{
-                      setKeyword,
-                      keyword,
-                      setSearchResults,
-                      label: "Search Friends",
-                      setisLoading,
-                    }}
-                  />
+                  <div className="group-members">
+                    <label>Add members:</label>
+                    <Recommend
+                      props={{
+                        setKeyword,
+                        keyword,
+                        setSearchResults,
+                        label: "Search Friends",
+                        setisLoading,
+                      }}
+                    />
+                  </div>
+
                   <form className="search-box" action="" method="post">
+                    <label>Group Name:</label>
+
                     <TextField
                       id="outlined-basic"
                       label="ChatName"
@@ -104,29 +96,25 @@ export default function BasicModal() {
                       onChange={(e) => setchatName(e.target.value)}
                     />
                   </form>
-                  <button
-                    className="bubble-btn  bubble-btn-small"
+                  <div className="create"> <button
+                    className="bubble-btn"
                     onClick={() =>
                       createGroup({ selectedUser, setselectedUser, chatName })
                     }
                   >
                     Group
                   </button>
+                  </div>
                 </div>
 
-                {/* //selected users */}
-                <div className="selected_user ">
-                  {selectedUser.length > 0
-                    ? selectedUser.map((val, index) => {
-                        return (
-                          <p key={index}>
-                            {val.firstname}
-
-                            <CloseIcon onClick={() => removeUser(val)} />
-                          </p>
-                        );
-                      })
-                    : null}
+                <div className="selected_user">
+                  {selectedUser.length > 0 &&
+                    selectedUser.map((val, index) => (
+                      <p key={index}>
+                        {val.firstname}
+                        <CloseIcon onClick={() => removeUser(val)} />
+                      </p>
+                    ))}
                 </div>
                 {isLoading ? (
                   <div className="loader_container">
@@ -155,15 +143,18 @@ export default function BasicModal() {
                 )}
               </div>
             </div>
-          </GroupStyle>
-        </Box>
-      </Modal>
+          </div>
+        </div>
+      )}
+
       <Snackbar
         open={openSnack}
         autoHideDuration={2000}
-        message="Either group name or users are missing or may be you didnt select enough users......"
+        message="Either group name or users are missing or maybe you didn't select enough users..."
         onClick={() => setOpenSnack(false)}
       />
-    </>
+    </GroupStyle>
   );
-}
+};
+
+export default BasicModal;

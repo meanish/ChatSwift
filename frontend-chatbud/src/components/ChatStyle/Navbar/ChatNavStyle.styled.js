@@ -4,7 +4,7 @@ export const ChatNavStyle = styled.div`
   .container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+
   }
 
   .container .logo_section {
@@ -17,8 +17,19 @@ export const ChatNavStyle = styled.div`
 
   .container .contents {
     display: flex;
-    gap: 1.5rem;
+    gap: 10px;
     align-items: center;
+    justify-content:flex-end;
     padding: 0 2rem;
   }
+
+    @media (max-width: 900px) {
+  .container .contents {
+    display: flex;
+    gap: 10px;
+    align-items:flex-end;
+    justify-content:;
+    padding: 0 2rem;
+  }
+    }
 `;

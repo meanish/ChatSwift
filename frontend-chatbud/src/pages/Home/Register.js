@@ -76,7 +76,7 @@ const RegisterForm = ({ handleClose }) => {
         //   [2000]
         // );
         toast.success("Sucessfully registered.")
-        navigate("/"); // Redirect to home page
+        navigate("/login"); // Redirect to home page
       } else if (data.errors) {
         setErrors(data.errors);
       }

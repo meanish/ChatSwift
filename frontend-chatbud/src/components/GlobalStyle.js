@@ -13,7 +13,9 @@ html{
   font-size: 80%;
     overflow-x:hidden;
 }
-
+li{
+  list-style-type:none;
+}
 body{
     overflow-x:hidden;
     scrollbar-width:thin;
@@ -36,6 +38,13 @@ img{
     display:flex;
     padding:0.5rem;
 }
+
+  @media (max-width: 900px) {
+    .container{
+    min-width:100%;
+
+}
+  }
 
 .custom-icon {
   color:${({ theme }) => theme.colors.eye};
@@ -116,7 +125,6 @@ button{
 //buble effect
 .bubble-btn {
   color:${({ theme }) => theme.colors.Darkblue};
-  background: #fcba03;
   position: relative;
   min-width: 90px;
   height: 50px;
@@ -135,10 +143,15 @@ button{
     10px 5px 10px rgba(0, 0, 0, 0.5),
     inset -5px -5px 10px rgba(255, 255, 255, 0.9);
 
-    &:hover{
-      box-shadow: inset 10px 10px 10px rgba(0, 0, 0, 0.5),
-    15px 10px 10px rgba(0, 0, 0, 0.5),
-    inset -10px -10px 15px rgba(255, 255, 255, 0.9);
+   background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0056b3;
     }
 }
 
@@ -147,11 +160,14 @@ button{
   position: absolute;
   top: 10px;
   left: 15px;
-  width: 10px;
+  width: 10%;
   height: 10px;
   background: #fff;
   border-radius: 50%;
   filter: blur(2px)
+}
+.create{
+  margin:auto;
 }
 .bubble-btn:before {
   content: '';

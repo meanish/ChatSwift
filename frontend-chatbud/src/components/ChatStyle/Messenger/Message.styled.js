@@ -87,7 +87,7 @@ export const MessageStyle = styled.div`
 
   .sent .message {
     color: white;
-    background-color: dodgerblue;
+    background-color: #4274C9;
     border-radius: 1em 0.25em 0.25em 1em;
   }
 

@@ -19,16 +19,13 @@ const Navbar = () => {
               />
             </NavLink>
             <div className="contents">
-              <nav>
-                <ul>
-                  <li>
-                    <InsideNotification />
-                  </li>
-                  <li>
-                    <Profile />
-                  </li>
-                </ul>
-              </nav>
+
+
+              <InsideNotification />
+
+              <Profile />
+
+
             </div>
           </div>
         </header>

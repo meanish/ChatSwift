@@ -29,7 +29,7 @@ width:100%;
       .detail {
         font-size: 24px;
         font-weight: bolder;
-color:#029973;
+color:#4274C9;
       }
 
       .name-highlight {

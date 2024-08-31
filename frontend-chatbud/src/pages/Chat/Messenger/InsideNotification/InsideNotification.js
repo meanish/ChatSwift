@@ -4,6 +4,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { Badge } from "@mui/material";
 import { GlobalChat } from "../../../../context/ChatContext";
 import { GlobalMessage } from "../../../../context/MessengerContext";
 import { NotificationStyle } from "../../../../components/ChatStyle/Messenger/InsideNotification/Notification.styled";
@@ -24,13 +25,8 @@ const InsideNotification = () => {
   const getChat = ({ val }) => {
     const chat = val.chat;
     handleClose();
-    //setting activeChat to display chat
     GetActiveChat({ val: chat });
-
-    //onChatlist select chat
     setclickUser(val.chat);
-
-    //clear notification
     setNotification(
       notification.filter((n) => n.sender.email !== val.sender.email)
     );
@@ -38,7 +34,7 @@ const InsideNotification = () => {
 
   return (
     <NotificationStyle>
-      {notification.length > 0 && (
+      <>
         <Button
           id="fade-button"
           aria-controls={open ? "fades-menu" : undefined}
@@ -47,25 +43,25 @@ const InsideNotification = () => {
           onClick={handleClick}
           className="notification-icon"
         >
-          <span className="badge">
-            {notification.length > 5 ? "5+" : notification.length}
-          </span>
-          <NotificationsIcon />
+          <Badge
+            badgeContent={notification.length > 5 ? "5+" : notification.length}
+            color="error"
+          >
+            <NotificationsIcon />
+          </Badge>
         </Button>
-      )}
-      <Menu
-        id="fades-menu"
-        MenuListProps={{
-          "aria-labelledby": "fade-button",
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Fade}
-      >
-        <div className="Notifications-title">Notifications</div>
-        {notification &&
-          notification.slice(0, 3).map((val, index) => {
+        <Menu
+          id="fades-menu"
+          MenuListProps={{
+            "aria-labelledby": "fade-button",
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Fade}
+          title="Notification"
+        >
+          {notification.length > 0 ? notification.slice(0, 3).map((val, index) => {
             const isFirstInstance =
               index === 0 ||
               val.sender.email !== notification[index - 1].sender.email;
@@ -79,9 +75,11 @@ const InsideNotification = () => {
                 <span className="menu-item">{val.content}</span>
               </MenuItem>
             );
-          })}
-      </Menu>
+          }) : <>No Notifications</>}
+        </Menu>
+      </>
     </NotificationStyle>
   );
 };
+
 export default InsideNotification;

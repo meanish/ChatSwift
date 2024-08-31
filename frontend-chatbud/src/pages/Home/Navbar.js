@@ -1,26 +1,30 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { NavbarStyle } from "../../components/Home/NavbarStyle.styled";
-
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Navbar = () => {
   const [activeLink, setActiveLink] = useState("");
-
-
-
+  const [isOpen, setIsOpen] = useState(false); // State for hamburger menu
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
+    setIsOpen(false); // Close menu on link click
+  };
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
     <NavbarStyle>
       <header>
-        <div className="container">
+        <div className="container ">
           <div className="logo_section">
             <img src={require("../../images/logobird.png")} alt="logo.png" />
           </div>
-          <div className="menu_list">
+          <div className={`menu_list ${isOpen ? "open" : ""}`}>
             <nav>
               <ul>
                 <li>
@@ -65,6 +69,9 @@ const Navbar = () => {
                 </li>
               </ul>
             </nav>
+          </div>
+          <div className="hamburger" onClick={toggleMenu}>
+            {isOpen ? <CloseIcon /> : <MenuIcon />}
           </div>
         </div>
       </header>

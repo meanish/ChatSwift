@@ -57,7 +57,7 @@ const SearchDrawer = ({ setSwitchDisplay }) => {
           setKeyword,
           keyword,
           setSearchResults,
-          label: "Chat",
+          label: "Find a user (First Word)",
           setisLoading,
         }}
       />
@@ -112,3 +112,4 @@ const SearchDrawer = ({ setSwitchDisplay }) => {
 };
 
 export default SearchDrawer;
+

@@ -13,7 +13,7 @@ export const StyleChat = styled.div`
 
     .user-list {
       flex-grow: 1;
-      max-width: 10%;
+      max-width: 15%;
       overflow-y: auto; /* Add vertical scrollbar if content overflows */
       background-color: #f4f4f4;
       display: flex;
@@ -22,13 +22,13 @@ export const StyleChat = styled.div`
 
     .chat-msg {
       flex-grow: 2;
-      max-width: 75%;
+      max-width: 65%;
       overflow-y: auto; /* Add vertical scrollbar if content overflows */
     }
 
     .user-details {
       flex-grow: 1;
-      max-width: 15%;
+      max-width: 20%;
       overflow-y: auto; /* Add vertical scrollbar if content overflows */
       background-color: #f4f4f4;
       display: flex;
@@ -73,6 +73,22 @@ export const StyleChat = styled.div`
     justify-content: center;
   }
 
+
+
+
+ @media (max-width: 1000px){
+   .chat-root {
+
+  .user-details{
+   display:none;
+
+  }
+  .user-list{
+  max-width: 30%;
+
+  }
+  }
+ }
   @media (max-width: 900px) {
 
 

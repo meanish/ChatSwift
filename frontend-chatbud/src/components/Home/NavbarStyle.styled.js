@@ -6,10 +6,10 @@ export const NavbarStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background-color: #4274c9; /* Light background */
+    background-color: #4274c9;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
-border-radius:5px;
-margin-bottom:6px;
+    border-radius: 5px;
+    margin-bottom: 6px;
     top: 0;
     z-index: 1000;
   }
@@ -31,102 +31,91 @@ margin-bottom:6px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+
+      li {
+        position: relative;
+        margin-left: 25px;
+      }
+
+      .list_items {
+        color: #ffff;
+        font-family: "Pacifico", cursive;
+        text-decoration: none;
+        font-size: 25px;
+        position: relative;
+        padding-bottom: 5px;
+        transition: color 0.3s ease;
+      }
+
+      .list_items.active,
+      .list_items:hover {
+        color: #110f1c;
+        font-size: 27px;
+      }
+
+      .list_items:after {
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        background-color: #110f1c;
+        bottom: 0;
+        left: 50%;
+        transition: width 0.3s ease, left 0.3s ease;
+      }
+
+      .list_items:hover:after {
+        width: 100%;
+        left: 0;
+      }
+    }
   }
 
-  nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-  }
-
-  nav ul li {
-    position: relative;
-    margin-left: 25px;
-  }
-
-  nav ul li .list_items {
-    color: #ffff;
-    font-family: "Pacifico", cursive;
-    text-decoration: none;
-    font-size: 25px;
-    position: relative;
-    padding-bottom: 5px;
-    transition: color 0.3s ease;
-  }
-
-  nav ul li .list_items.active,
-  nav ul li .list_items:hover {
-    color: #110F1C;
-    font-size: 27px;
-
-  }
-
-  nav ul li .list_items:after {
-    content: "";
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    background-color: #110F1C;
-    bottom: 0;
-    left: 50%;
-    transition: width 0.3s ease, left 0.3s ease;
-  }
-
-  nav ul li .list_items:hover:after {
-    width: 100%;
-    left: 0;
-  }
-
-  .dropDown-menu {
-    position: relative;
-  }
-
-  nav > ul > .dropDown-menu:after {
-    content: "";
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 5px 5px 0 5px;
-    border-color: #eeee transparent transparent transparent;
-    position: absolute;
-    top: 30px;
-    right: 0px;
-  }
-
-  nav > ul > .dropDown-menu:hover:after {
-    border-width: 0px 5px 5px 5px;
-    border-color: transparent transparent #007bff transparent;
-  }
-
-  nav .dropDown-menu > ul {
-    list-style: none;
-    margin: 24px 0px 0px;
-    padding: 12px 0px;
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 150px;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+  .hamburger {
     display: none;
-    border-radius: 4px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #ffff;
+
   }
 
-  nav .dropDown-menu:hover > ul {
-    display: block;
-  }
+  @media (max-width: 768px) {
+    .menu_list {
+      position: absolute;
+      top: 100px;
+      right: 0;
+      background-color: #4274c9;
+      flex-direction: column;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
 
-  nav .dropDown-menu li a {
-    display: block;
-    padding: 12px 20px;
-    color: #495057;
-    font-size: 16px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
+      &.open {
+        max-height: 300px; /* Adjust based on the number of menu items */
+      }
 
-  nav .dropDown-menu li a:hover {
-    background-color: #e9ecef; /* Light hover effect */
-    color: #eeee;
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+
+        li {
+          margin-left: 0;
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    .hamburger {
+      display: flex;
+      align-items:center;
+    }
   }
 `;

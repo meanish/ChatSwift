@@ -81,7 +81,7 @@ export const ChatListStyle = styled.div`
   .goccia.active {
     background: rgba(166, 165, 154, 0.5);
     font-size: 20px;
-    color: blue;
+    color: #4274C9;
     font-weight: bolder;
     border-left: 4px solid ${({ theme }) => theme.colors.primary};
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);

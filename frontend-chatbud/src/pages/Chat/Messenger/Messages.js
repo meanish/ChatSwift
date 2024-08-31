@@ -128,8 +128,9 @@ const Messages = ({ isTyping }) => {
 
   //scroll tobottom on chnages
   useEffect(() => {
+    if(isTyping||messages)
     scrollToBottom();
-  }, [messages]);
+  }, [messages,isTyping]);
 
   //for istyping loader
 
@@ -144,7 +145,7 @@ const Messages = ({ isTyping }) => {
 
 
 
-  
+
   return (
     <MessageStyle>
       {isLoading ? (
@@ -201,13 +202,13 @@ const Messages = ({ isTyping }) => {
 
                       <div className="typing">
                         {isTyping && currroom === selectedChat._id ? (
-                          <div>
-                            <Lottie
-                              options={defaultOptions}
-                              width={70}
-                              style={{ marginBottom: 15, marginLeft: 0 }}
-                            />
-                          </div>
+                        <div>
+                          <Lottie
+                            options={defaultOptions}
+                            width={70}
+                            style={{ marginBottom: 15, marginLeft: 0 }}
+                          />
+                        </div>
                         ) : null}
                       </div>
                     </div>

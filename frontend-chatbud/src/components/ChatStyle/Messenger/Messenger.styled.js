@@ -106,14 +106,14 @@ min-height:100vh;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Soft shadow */
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
-
   &:hover {
     background-color: #e0e0e0;  /* Slightly darker on hover */
     transform: scale(1.1);  /* Slight zoom effect on hover */
   }
 
   svg {
-    color: blue;  /* Icon color */
+   color:#4274C9;
+  /* Icon color */
     font-size: 24px;  /* Icon size */
   }
 }
