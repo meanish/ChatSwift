@@ -13,6 +13,8 @@ const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
   const { selectedChat, SendMessage } = GlobalMessage();
   const [newMessage, setnewMessage] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isSending, setIsSending] = useState(false);
+
   const { socketConnected, setisTyping, isTyping, user, setcurrRoom } =
     GlobalChat();
 
@@ -107,6 +109,8 @@ const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
                       if (e.key === "Enter" && newMessage) {
                         e.preventDefault(); // Prevent form submission
                         SendMessage({ newMessage, selectedChat, setnewMessage });
+                        setnewMessage("")
+
                         socket.emit("stop_typing", selectedChat._id);
                       }
                     }}
@@ -118,6 +122,7 @@ const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
                         onClick={(e) => {
                           e.preventDefault(); // Prevent form submission
                           SendMessage({ newMessage, selectedChat, setnewMessage });
+                          setnewMessage("")
                           socket.emit("stop_typing", selectedChat._id);
                         }}
                       />

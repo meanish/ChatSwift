@@ -9,6 +9,7 @@ const initialState = {
   selectedChat: "",
   newid: "",
   MessageData: [],
+  isSending: false,
 };
 
 const MessengerProvider = ({ children }) => {
