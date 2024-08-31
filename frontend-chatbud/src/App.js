@@ -3,7 +3,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Home/Login";
 import Chat from "./pages/Chat/Chat";
 import Register from "./pages/Home/Register";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import GlobalStyles from "./components/GlobalStyle";
 import bg_theme from "./images/bg.png";
@@ -45,14 +45,14 @@ function App() {
       <>
         <div className="App">
           <GlobalStyles />
-          <BrowserRouter>
+          <HashRouter>
             <Routes>
               <Route path="/" exact element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/register" element={<Register />} />
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
         </div>
       </>
     </ThemeProvider>
