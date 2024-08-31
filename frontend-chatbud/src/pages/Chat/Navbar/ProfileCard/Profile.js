@@ -67,7 +67,7 @@ export default function Profile() {
           </IconButton>
         </Tooltip>
         {
-          user ? <div style={{ "color": 'white', "fontSize": "20px" }}>{user.firstname}</div> : null
+          user ? <div className="user-name" style={{ "color": 'white', "fontSize": "20px" }}>{user.firstname}</div> : null
         }
 
       </Box>

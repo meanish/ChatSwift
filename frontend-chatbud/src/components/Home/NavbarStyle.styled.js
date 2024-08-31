@@ -26,6 +26,17 @@ export const NavbarStyle = styled.div`
     }
   }
 
+      @media (max-width: 450px) {
+ .logo_section {
+    flex: 1;
+    img {
+      width: 100px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+ }
+      }
+
   .menu_list {
     flex: 2;
     display: flex;

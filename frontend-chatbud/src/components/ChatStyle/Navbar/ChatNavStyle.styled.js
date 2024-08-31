@@ -32,4 +32,15 @@ export const ChatNavStyle = styled.div`
     padding: 0 2rem;
   }
     }
+
+    @media (max-width: 450px) {
+  .container .contents {
+    gap: 0px;
+    .user-name{
+      display:none;
+    }
+  }
+
+    }
+
 `;
