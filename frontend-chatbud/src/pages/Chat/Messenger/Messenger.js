@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { TextField, Button } from "@mui/material";
-import { Send, CameraAlt, Image, Mic, ArrowBack } from "@mui/icons-material";
+import { Send, ArrowBack } from "@mui/icons-material";
 import { StyleMessenger } from "../../../components/ChatStyle/Messenger/Messenger.styled";
 import { GlobalMessage } from "../../../context/MessengerContext";
 import ChatBox from "./ChatBox";
 import Messages from "./Messages";
 import { GlobalChat } from "../../../context/ChatContext";
 import socket from "../../../config/socket";
-
 
 const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
   const { selectedChat, SendMessage } = GlobalMessage();
@@ -18,6 +17,8 @@ const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
   const { socketConnected, setisTyping, isTyping, user, setcurrRoom } =
     GlobalChat();
 
+  // Create a ref for the TextField
+  const textFieldRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -25,32 +26,24 @@ const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
   const shouldDisplayChatList = windowWidth > 900 || switchDisplay;
 
-  // console.log("Is the scoket active when messageier", socketConnected)
-
-
-  //onTyping effect in receiver
   const changeHandler = (e) => {
     setnewMessage(e.target.value);
 
-
-    // console.log("When writing statrt condition", socketConnected, "In chat troom id", selectedChat._id)
     if (!socketConnected) return;
 
     socket.emit("typing", selectedChat._id);
 
     let lastTypingTime = new Date().getTime();
 
-    var timerLength = 3000; //3sec
+    var timerLength = 3000; // 3 seconds
 
     setTimeout(() => {
       var timeNow = new Date().getTime();
       var timeDiff = timeNow - lastTypingTime;
 
       if (timeDiff >= timerLength) {
-        //means if typing gap is more than 3 sec and still typing then stop
         socket.emit("stop_typing", selectedChat._id);
         setisTyping(false);
       }
@@ -61,9 +54,21 @@ const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
     socket.on("typing", (room) => {
       setcurrRoom(room);
       setisTyping(true);
-    }); //when typing go true
-    socket.on("stop_typing", () => setisTyping(false)); //when stopped dgo true
+    });
+    socket.on("stop_typing", () => setisTyping(false));
   });
+
+  const handleSendMessage = () => {
+    if (newMessage) {
+      SendMessage({ newMessage, selectedChat, setnewMessage });
+      setnewMessage("");
+      socket.emit("stop_typing", selectedChat._id);
+      // Focus the TextField after sending the message
+      if (textFieldRef.current) {
+        textFieldRef.current.focus();
+      }
+    }
+  };
 
   return (
     <StyleMessenger>
@@ -76,18 +81,14 @@ const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
                 {selectedChat && selectedChat !== "" ? (
                   !selectedChat.isGroupChat ? (
                     selectedChat.users
-                      .filter((val) => val._id !== (user._id || user?.userData._id)) //remove admin
-                      .map(
-                        (
-                          val //what lest is receiver
-                        ) => (
-                          <ChatBox
-                            key={val._id}
-                            name={val.firstname}
-                            val={selectedChat}
-                          />
-                        )
-                      )
+                      .filter((val) => val._id !== (user._id || user?.userData._id)) // Remove admin
+                      .map((val) => (
+                        <ChatBox
+                          key={val._id}
+                          name={val.firstname}
+                          val={selectedChat}
+                        />
+                      ))
                   ) : (
                     <ChatBox name={selectedChat.chatName} val={selectedChat} />
                   )
@@ -96,7 +97,7 @@ const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
                 )}
               </div>
               <div className="messages">
-                {/*  //All Messages */}
+                {/* All Messages */}
                 <Messages isTyping={isTyping} />
                 <div className="message_field">
                   <TextField
@@ -106,26 +107,17 @@ const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
                     placeholder="Type your message..."
                     onChange={(e) => changeHandler(e)}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter" && newMessage) {
+                      if (e.key === "Enter") {
                         e.preventDefault(); // Prevent form submission
-                        SendMessage({ newMessage, selectedChat, setnewMessage });
-                        setnewMessage("")
-
-                        socket.emit("stop_typing", selectedChat._id);
+                        handleSendMessage();
                       }
                     }}
+                    // Set the ref to the TextField
+                    ref={textFieldRef}
                   />
                   <div className="icons-container">
-
-                    <Button variant="contained" color="primary">
-                      <Send
-                        onClick={(e) => {
-                          e.preventDefault(); // Prevent form submission
-                          SendMessage({ newMessage, selectedChat, setnewMessage });
-                          setnewMessage("")
-                          socket.emit("stop_typing", selectedChat._id);
-                        }}
-                      />
+                    <Button variant="contained" color="primary" onClick={handleSendMessage}>
+                      <Send />
                     </Button>
                   </div>
                 </div>
@@ -139,8 +131,3 @@ const Messenger = ({ switchDisplay, setSwitchDisplay }) => {
 };
 
 export default Messenger;
-
-
-// {/* <CameraAlt />
-//               <Image />
-//               <Mic /> */}
