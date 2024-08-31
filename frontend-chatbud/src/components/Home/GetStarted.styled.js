@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const GetStartedStyle = styled.div`
+export const  GetStartedStyle = styled.div`
   @import url(https://fonts.googleapis.com/css?family=Gudea:400,700);
 
   display: flex;
@@ -54,5 +54,12 @@ export const GetStartedStyle = styled.div`
     .user_result {
       
     }
+  }
+
+  @media (max-width: 500px) {
+  .get-started {
+    width: 90%;
+
+  }
   }
 `;

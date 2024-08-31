@@ -157,7 +157,7 @@ const Chat = () => {
       ) : (
         <>
           <ChatNavbar />
-          {!chatList.length > 0 ? (
+          {chatList.length > 0 ? (
             <GetStarted />
           ) : (
             <div className="chat-root">
