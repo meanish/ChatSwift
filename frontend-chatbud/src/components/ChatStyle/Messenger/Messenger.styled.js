@@ -83,15 +83,7 @@ min-height:100vh;
 }
 
 
-@media (max-width: 900px) {
-  .button.arrowback {
-    position: fixed;
-    top: 200px; /* Adjust as needed */
-    z-index:99999;
-    left: 10px; /* Adjust as needed */
-    /* Additional styles to ensure proper visibility and positioning */
-  }
-}
+
 
 
 
@@ -225,4 +217,17 @@ button:hover {
   .send-icon {
     font-size: 24px;
   }
+
+  @media (max-width: 900px) {
+  .button.arrowback {
+    position: fixed;
+    top: 200px; /* Adjust as needed */
+    z-index:99999;
+    left: 10px; /* Adjust as needed */
+    /* Additional styles to ensure proper visibility and positioning */
+  }
+  .icons-container{
+    display:none;
+  }
+}
 `;
