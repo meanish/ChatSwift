@@ -4,7 +4,7 @@ import YouTubeLink from "./Youtube/YoutubeLink";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const videoUrl = "https://www.youtube.com/watch?v=GDSIm4-Hz7g";
+  const videoUrl = "https://www.youtube.com/watch?v=Eh84Bjtw5xE";
 
   const navigate = useNavigate();
 
